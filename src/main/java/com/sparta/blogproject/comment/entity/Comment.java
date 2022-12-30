@@ -1,6 +1,7 @@
-package com.sparta.blogproject.comment;
+package com.sparta.blogproject.comment.entity;
 
 
+import com.sparta.blogproject.comment.dto.CommentDto;
 import com.sparta.blogproject.common.entity.TimeStamped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Cmt extends TimeStamped {
+public class Comment extends TimeStamped {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
@@ -22,18 +23,19 @@ public class Cmt extends TimeStamped {
     @Column(nullable = false)
     private String comments;
 
-    public Cmt(String username, String comments) {
+    public Comment(String username, String comments) {
         this.username = username;
         this.comments = comments;
     }
 
-    public Cmt(CmtDto requestDto) {
+    public Comment(CommentDto requestDto) {
         this.username = requestDto.getUsername();
         this.comments = requestDto.getComments();
     }
 
-    public void update(CmtDto requestDto) {
+    public void update(CommentDto requestDto) {
         this.username = requestDto.getUsername();
         this.comments = requestDto.getComments();
     }
+
 }
