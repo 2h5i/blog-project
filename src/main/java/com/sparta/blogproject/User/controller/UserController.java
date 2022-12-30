@@ -20,8 +20,7 @@ public class UserController {
 
     private final UserService userService;
 
-    //    - 1. 회원 가입 API
-//    - username, password를 Client에서 전달받기
+ //    - 1. 회원 가입 API
 //    - DB에 중복된 username이 없다면 회원을 저장하고 Client 로 성공했다는 메시지, 상태코드 반환하기
 //    - 회원 권한 부여하기 (ADMIN, USER) - ADMIN 회원은 모든 게시글 수정 / 삭제 가능
     @PostMapping("/signup")
