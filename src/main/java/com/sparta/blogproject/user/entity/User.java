@@ -1,4 +1,4 @@
-package com.sparta.blogproject.User.entity;
+package com.sparta.blogproject.user.entity;
 
 import lombok.NoArgsConstructor;
 

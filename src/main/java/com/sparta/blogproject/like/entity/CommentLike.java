@@ -1,5 +1,8 @@
 package com.sparta.blogproject.like.entity;
 
+import com.sparta.blogproject.user.entity.User;
+import com.sparta.blogproject.comment.entity.Comment;
+import com.sparta.blogproject.common.entity.TimeStamped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @NoArgsConstructor
-public class CommentLike {
+public class CommentLike extends TimeStamped {
 
     //필드
     @Id

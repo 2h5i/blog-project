@@ -1,4 +1,4 @@
-package com.sparta.blogproject.User.dto;
+package com.sparta.blogproject.user.dto;
 
 public class ResponseStatusDto {
 

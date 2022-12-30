@@ -1,5 +1,7 @@
 package com.sparta.blogproject.like.entity;
 
+import com.sparta.blogproject.user.entity.User;
+import com.sparta.blogproject.common.entity.TimeStamped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-public class PostLike {
+public class PostLike extends TimeStamped {
 
     //필드
     @Id
@@ -24,7 +26,7 @@ public class PostLike {
     private User user;
 
     //생성자
-    public BoardLike(Post post, User user) {
+    public PostLike(Post post, User user) {
         this.post = post;
         this.user = user;
     }
