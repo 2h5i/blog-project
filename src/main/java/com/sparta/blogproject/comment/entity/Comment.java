@@ -37,4 +37,5 @@ public class Comment extends TimeStamped {
         this.username = requestDto.getUsername();
         this.comments = requestDto.getComments();
     }
+
 }
