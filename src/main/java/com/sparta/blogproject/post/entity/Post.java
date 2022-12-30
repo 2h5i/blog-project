@@ -1,12 +1,15 @@
 package com.sparta.blogproject.post.entity;
 
+import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.common.entity.TimeStamped;
 import com.sparta.blogproject.post.dto.PostRequestDto;
+import com.sparta.blogproject.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
