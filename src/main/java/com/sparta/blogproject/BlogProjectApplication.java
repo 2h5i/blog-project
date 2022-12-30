@@ -10,6 +10,7 @@ public class BlogProjectApplication {
         SpringApplication.run(BlogProjectApplication.class, args);
         System.out.println("test");
         System.out.println("학윤");
+        System.out.println("혜원");
     }
 
 }
