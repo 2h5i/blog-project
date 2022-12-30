@@ -1,5 +1,6 @@
-package com.sparta.blogproject.User.entity;
+package com.sparta.blogproject.user.entity;
 
+import com.sparta.blogproject.post.entity.Post;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;

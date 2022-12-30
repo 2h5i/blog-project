@@ -1,4 +1,4 @@
-package com.sparta.blogproject.User.service;
+package com.sparta.blogproject.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

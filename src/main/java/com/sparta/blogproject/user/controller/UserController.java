@@ -1,9 +1,9 @@
-package com.sparta.blogproject.User.controller;
+package com.sparta.blogproject.user.controller;
 
-import com.sparta.blogproject.User.dto.LoginRequest;
-import com.sparta.blogproject.User.dto.ResponseStatusDto;
-import com.sparta.blogproject.User.dto.SignupRequest;
-import com.sparta.blogproject.User.service.UserService;
+import com.sparta.blogproject.user.dto.LoginRequest;
+import com.sparta.blogproject.user.dto.ResponseStatusDto;
+import com.sparta.blogproject.user.dto.SignupRequest;
+import com.sparta.blogproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

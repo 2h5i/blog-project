@@ -1,7 +1,7 @@
 package com.sparta.blogproject.comment.entity;
 
 
-import com.sparta.blogproject.comment.dto.CommentDto;
+
 import com.sparta.blogproject.common.entity.TimeStamped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
