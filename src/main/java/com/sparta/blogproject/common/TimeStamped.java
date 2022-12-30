@@ -14,9 +14,10 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class TimeStamped {
-        //
+
         @CreatedDate
         private LocalDateTime createdAt;
+
 
         @LastModifiedDate
         private LocalDateTime modifiedAt;
