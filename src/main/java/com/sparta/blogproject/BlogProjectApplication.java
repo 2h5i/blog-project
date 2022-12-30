@@ -8,7 +8,7 @@ public class BlogProjectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BlogProjectApplication.class, args);
-        System.out.println("4-test");
+        System.out.println("4-test by 4");
     }
 
 }
