@@ -1,4 +1,4 @@
-package com.sparta.blogproject.common;
+package com.sparta.blogproject.common.entity;
 
 
 import lombok.Getter;
