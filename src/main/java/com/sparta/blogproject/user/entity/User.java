@@ -1,6 +1,7 @@
 package com.sparta.blogproject.user.entity;
 
 import com.sparta.blogproject.post.entity.Post;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -8,12 +9,13 @@ import javax.xml.stream.events.Comment;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @NoArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy  = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -22,22 +24,23 @@ public class User {
     @Column(nullable = false, unique = true)
     private String password;
 
-//    @Column(nullable = false)
-//    private String email;
-//테스트
+    @Column(nullable = false)
+    private String email;
+
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum userRole;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     List<Post> postList = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
-    List<Comment> commentList = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+//    List<Comment> commentList = new ArrayList<>();
 
-    public User(String username, String password, UserRoleEnum userRole) {
+    public User(String username, String password, String email, UserRoleEnum userRole) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.userRole = userRole;
     }
 }
