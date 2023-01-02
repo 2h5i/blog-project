@@ -1,9 +1,10 @@
-package com.sparta.blogproject.comment.entity;
+package com.sparta.blogproject.like.entity;
 
 
 
 import com.sparta.blogproject.common.entity.TimeStamped;
 import com.sparta.blogproject.post.entity.Post;
+import com.sparta.blogproject.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,10 @@ public class Comment extends TimeStamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Comment(String username, String comments) {
         this.username = username;
