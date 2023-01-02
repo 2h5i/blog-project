@@ -10,6 +10,8 @@ import com.sparta.blogproject.user.entity.User;
 import com.sparta.blogproject.user.entity.UserRoleEnum;
 import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.codec.ClientCodecConfigurer;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,11 +28,11 @@ public class UserService {
     private final JwtUtil jwtUtil;
     // ADMIN_TOKEN
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
-
+    private final PasswordEncoder passwordEncoder;
     @Transactional
     public ResponseStatusDto signup(@Valid SignupRequest signupRequest) {
         String username = signupRequest.getUsername();
-        String password = signupRequest.getPassword();
+        String password = passwordEncoder.encode(signupRequest.getPassword());
 
         //회원중복확인
         Optional<User> found = userRepository.findByUsername(username);
@@ -65,7 +67,7 @@ public class UserService {
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
         //비밀번호 확인
-        if (!user.getPassword().equals(password)) {
+          if(!passwordEncoder.matches(password,user.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
