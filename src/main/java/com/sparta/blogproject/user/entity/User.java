@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Entity
+@Entity(name = "users")
 @NoArgsConstructor
 public class User {
 
@@ -21,7 +21,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
@@ -29,7 +29,7 @@ public class User {
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private UserRoleEnum userRole;
+    private UserRoleEnum role;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     List<Post> postList = new ArrayList<>();
@@ -41,6 +41,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.userRole = userRole;
+        this.role = userRole;
     }
 }
