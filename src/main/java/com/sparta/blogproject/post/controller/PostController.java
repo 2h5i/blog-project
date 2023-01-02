@@ -1,5 +1,6 @@
 package com.sparta.blogproject.post.controller;
 
+import com.sparta.blogproject.common.security.UserDetailsImpl;
 import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.post.dto.PostResponseDto;
 import com.sparta.blogproject.post.service.PostService;
@@ -21,11 +22,8 @@ public class PostController {
     private final UserRepository userRepository;
 
     @PostMapping("/")
-    public ResponseEntity createPost(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetails userDetails) {
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
-        );
-        postService.createPost(postRequestDto, user);
+    public ResponseEntity createPost(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        postService.createPost(postRequestDto, userDetails.getUser());
         return ResponseEntity.ok("게시글 작성 완료");
     }
 
@@ -40,20 +38,14 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetails userDetails) {
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
-        );
-        postService.updatePost(id, postRequestDto, user);
+    public ResponseEntity updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        postService.updatePost(id, postRequestDto, userDetails.getUser());
         return ResponseEntity.ok("게시글 수정 완료");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
-        );
-        postService.deletePost(id, user);
+    public ResponseEntity deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        postService.deletePost(id, userDetails.getUser());
         return ResponseEntity.ok("게시글 삭제 완료");
     }
 }
