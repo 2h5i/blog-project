@@ -5,6 +5,7 @@ import com.sparta.blogproject.comment.dto.CommentRequestDto;
 import com.sparta.blogproject.comment.dto.CommentResponseDto;
 import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.comment.repository.CommentRepository;
+import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,18 +17,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class CommentService {
-
     private final CommentRepository commentRepository;
 
     @Transactional
     public void createComment(CommentRequestDto commentRequestDto, User user) {
         Comment comment = new Comment(commentRequestDto, user);
         commentRepository.save(comment);
-    }
-
-    @Transactional
-    public List<CommentResponseDto> getComments() {
-        return commentRepository.findAllByOrderByModifiedAtDesc().stream().map(CommentResponseDto::new).collect(Collectors.toList());
     }
 
     @Transactional
