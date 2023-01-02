@@ -17,7 +17,7 @@ public class PostLike {
 
     //필드
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //boardLikeList : board 관계 --> 다대일 양방향 관계

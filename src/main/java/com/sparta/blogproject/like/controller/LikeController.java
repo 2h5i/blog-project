@@ -2,8 +2,7 @@ package com.sparta.blogproject.like.controller;
 
 import com.sparta.blogproject.common.security.UserDetailsImpl;
 import com.sparta.blogproject.like.dto.MsgResponseDto;
-import com.sparta.blogproject.like.service.CommentLikeService;
-import com.sparta.blogproject.like.service.PostLikeService;
+import com.sparta.blogproject.like.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/likes")
 public class LikeController {
 
-    private final PostLikeService postLikeService;
-    private final CommentLikeService commentLikeService;
+    private final LikeService postLikeService;
+    private final LikeService commentLikeService;
 
 
     //게시글 좋아요
