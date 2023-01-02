@@ -4,6 +4,7 @@ import com.sparta.blogproject.comment.dto.CommentRequestDto;
 import com.sparta.blogproject.comment.dto.CommentResponseDto;
 import com.sparta.blogproject.comment.service.CommentService;
 import com.sparta.blogproject.common.security.UserDetailsImpl;
+import com.sparta.blogproject.post.dto.PostRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,17 +23,6 @@ public class CommentController {
     public ResponseEntity createComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.createComment(commentRequestDto, userDetails.getUser());
         return ResponseEntity.ok("작성 완료");
-    }
-
-//    조회
-    @GetMapping("/")
-    public List<CommentResponseDto> getComments() {
-        return commentService.getComments();
-    }
-
-    @GetMapping("/{id}")
-    public CommentResponseDto getCommentById(@PathVariable Long id) {
-        return commentService.getCommentsByID(id);
     }
 
 //    수정
