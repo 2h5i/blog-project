@@ -46,6 +46,7 @@ public class PostService {
         return new PostResponseDto(post);
     }
 
+    @Transactional
     public void update(Long id, PostRequestDto postRequestDto, UserDetails userDetails) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
@@ -57,6 +58,7 @@ public class PostService {
         }
     }
 
+    @Transactional
     public void deletePost(Long id, UserDetails userDetails) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
