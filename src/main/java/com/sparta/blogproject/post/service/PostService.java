@@ -22,13 +22,7 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void createPost(PostRequestDto postRequestDto, UserDetails userDetails) {
-        String username = userDetails.getUsername();
-
-        User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
-        );
-
+    public void createPost(PostRequestDto postRequestDto, User user) {
         Post post = new Post(postRequestDto, user);
         postRepository.save(post);
     }
@@ -39,7 +33,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostResponseDto getPost(Long id) {
+    public PostResponseDto getPostById(Long id) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
         );
@@ -47,25 +41,27 @@ public class PostService {
     }
 
     @Transactional
-    public void update(Long id, PostRequestDto postRequestDto, UserDetails userDetails) {
+    public void updatePost(Long id, PostRequestDto postRequestDto, User user) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
         );
-
-        if (post.getUser().getUsername().equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+        if (post.getUser().getUsername().equals(user.getUsername())) {
             post.update(postRequestDto);
             postRepository.save(post);
+        } else {
+            throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
         }
     }
 
     @Transactional
-    public void deletePost(Long id, UserDetails userDetails) {
+    public void deletePost(Long id, User user) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
         );
-
-        if (post.getUser().getUsername().equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+        if (post.getUser().getUsername().equals(user.getUsername())) {
             postRepository.delete(post);
+        } else {
+            throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
         }
     }
 }
