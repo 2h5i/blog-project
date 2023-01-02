@@ -18,7 +18,6 @@ public class Comment extends TimeStamped {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "comment_id")
     private Long id;
 
     //        게시글

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/posts/{id}/comments")
+@RequestMapping("/api/posts/comments")
 public class CommentController {
     private final CommentService commentService;
 
@@ -30,20 +30,20 @@ public class CommentController {
         return commentService.getComments();
     }
 
-    @GetMapping("/{commentID}")
+    @GetMapping("/{id}")
     public CommentResponseDto getCommentById(@PathVariable Long id) {
         return commentService.getCommentsByID(id);
     }
 
 //    수정
-    @PutMapping("/{commentID}")
+    @PutMapping("/{id}")
     public ResponseEntity updateComment(@PathVariable Long id, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.updateComment(id, commentRequestDto, userDetails.getUser());
         return ResponseEntity.ok("수정 완료");
     }
 
 //    삭제
-    @DeleteMapping("/{commentID}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.deleteComment(id, userDetails.getUser());
         return ResponseEntity.ok("삭제 완료");
