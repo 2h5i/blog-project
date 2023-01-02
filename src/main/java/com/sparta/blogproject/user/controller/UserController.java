@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -29,8 +29,6 @@ public class UserController {
     public ResponseStatusDto signup(@RequestBody @Valid SignupRequest signupRequest){
         return userService.signup(signupRequest);
     }
-
-
 
 //- 2. 로그인 API
 //    - username, password를 Client에서 전달받기

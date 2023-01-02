@@ -1,5 +1,8 @@
 package com.sparta.blogproject.user.dto;
 
+import lombok.Getter;
+
+@Getter
 public class ResponseStatusDto {
 
     private int StatusCode;

@@ -9,6 +9,7 @@ public enum StatusEnum {
 
     SIGN_SUCCESS(200, "회원가입 성공"),
     LOGIN_SUCCESS(200, "로그인 성공");
+
     int statusCode;
     String msg;
 

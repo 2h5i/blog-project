@@ -20,13 +20,14 @@ public class CommentLike extends TimeStamped {
     //필드
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long CommentLikeId;
+    private Long id;
 
 
     @ManyToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;
+
     @ManyToOne
-    @JoinColumn(name = "comment_like_User_id")      
+    @JoinColumn(name = "user_id")
     private User user;
 }
