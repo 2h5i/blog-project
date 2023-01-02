@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
 
     @Transactional
     public void createPost(PostRequestDto postRequestDto, User user) {
@@ -62,5 +61,22 @@ public class PostService {
         } else {
             throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
         }
+    }
+
+    @Transactional
+    public void updatePostByAdmin(Long id, PostRequestDto postRequestDto) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
+        );
+        post.update(postRequestDto);
+        postRepository.save(post);
+    }
+
+    @Transactional
+    public void deletePostByAdmin(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
+        );
+        postRepository.delete(post);
     }
 }

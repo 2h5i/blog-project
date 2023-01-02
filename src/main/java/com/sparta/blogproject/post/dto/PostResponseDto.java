@@ -12,6 +12,7 @@ public class PostResponseDto {
     private String title;
     private LocalDateTime createdAt;
     // TODO: List<CommentResponseDto> comments 추가하기
+    // TODO: Like count 추가하가
 
     public PostResponseDto(Post post) {
         this.username = post.getUser().getUsername();
@@ -19,5 +20,6 @@ public class PostResponseDto {
         this.title = post.getTitle();
         this.createdAt = post.getCreatedAt();
         // TODO: this.comments 추가하기
+        // TODO: this.likeCount 추가하기
     }
 }

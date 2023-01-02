@@ -38,6 +38,8 @@ public class Post extends TimeStamped {
 
     private List<Comment> comments = new ArrayList<>();
 
+    // TODO: likeCount 추가하기
+
     public Post(PostRequestDto postRequestDto, User user) {
         this.contents = postRequestDto.getContents();
         this.title = postRequestDto.getTitle();
