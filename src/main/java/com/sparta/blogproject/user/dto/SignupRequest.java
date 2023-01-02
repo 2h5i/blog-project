@@ -20,7 +20,7 @@ public class SignupRequest {
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "최소 8자 이상, 15자 이하이며 a-z, A-Z, 0-9 만 입력하세요.")
     private String password;
 
-    //private String email;
+    private String email;
 
     private boolean admin = false;
     private String adminToken = "";
