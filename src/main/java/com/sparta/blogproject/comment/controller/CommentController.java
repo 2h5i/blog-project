@@ -25,12 +25,6 @@ public class CommentController {
         return ResponseEntity.ok("작성 완료");
     }
 
-//    조회
-    @GetMapping("/{id}")
-    public CommentResponseDto getCommentById(@PathVariable Long id) {
-        return commentService.getCommentsByID(id);
-    }
-
 //    수정
     @PutMapping("/{id}")
     public ResponseEntity updateComment(@PathVariable Long id, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
