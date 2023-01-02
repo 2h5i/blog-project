@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @NoArgsConstructor
 public class SignupRequest {
-//정규식 수정하기
+
     @NotBlank
     @Size(min = 4, max = 8)
     @Pattern(regexp = "^[a-z0-9]*$", message = "최소 4자 이상, 10자 이하이며 a-z, 0-9 만 입력하세요.")
