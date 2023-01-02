@@ -1,5 +1,6 @@
 package com.sparta.blogproject.common.jwt;
 
+import com.sparta.blogproject.user.entity.UserRoleEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -57,13 +58,13 @@ public class JwtUtil {
     }
 
     // 토큰 생성
-    public String createToken(String username) { // TODO : UserRoleEnum 추가하기
+    public String createToken(String username, UserRoleEnum userRole) {
         Date date = new Date();
 
         return BEARER_PREFIX +
                 Jwts.builder()
                         .setSubject(username)
-                        .claim(AUTHORIZATION_KEY, username)  // TODO : UserRoleEnum 추가하기
+                        .claim(AUTHORIZATION_KEY, userRole)
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME))
                         .setIssuedAt(date)
                         .signWith(key, signatureAlgorithm)

@@ -14,19 +14,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class PostLike extends TimeStamped {
 
-
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //boardLikeList : board 관계 --> 다대일 양방향 관계
     @ManyToOne
-    @JoinColumn(name = "User_ID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "Post_ID", nullable = false)
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
     //생성자

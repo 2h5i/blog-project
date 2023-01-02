@@ -30,8 +30,6 @@ public class UserController {
         return userService.signup(signupRequest);
     }
 
-
-
 //- 2. 로그인 API
 //    - username, password를 Client에서 전달받기
 //    - DB에서 username을 사용하여 저장된 회원의 유무를 확인하고 있다면 password 비교하기
