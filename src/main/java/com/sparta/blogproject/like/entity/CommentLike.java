@@ -28,6 +28,6 @@ public class CommentLike {
     //commentLike : user  관계 --> 다대일 단방향 관계
 
     @ManyToOne
-    @JoinColumn(name = "comment_like_User_id")      //테이블에서 name 속성을 따로 적어주지 않는 경우, name 은 해당 객체명이 된다.
+    @JoinColumn(name = "comment_like_user_id")      //테이블에서 name 속성을 따로 적어주지 않는 경우, name 은 해당 객체명이 된다.
     private User user;
 }
