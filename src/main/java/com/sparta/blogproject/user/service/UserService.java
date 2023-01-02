@@ -51,7 +51,7 @@ public class UserService {
         User user = new User(username, password, email, role);
 
         userRepository.save(user);
-        return new ResponseStatusDto(StatusEnum.LOGIN_SUCCESS);
+        return new ResponseStatusDto(StatusEnum.SIGN_SUCCESS);
 
     }
 
@@ -66,9 +66,9 @@ public class UserService {
         );
         //비밀번호 확인
         if (!user.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다. ");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-    //    response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(),user.getUserRole()));
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
 
 
         return new ResponseStatusDto(StatusEnum.LOGIN_SUCCESS);
