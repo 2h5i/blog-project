@@ -3,6 +3,7 @@ package com.sparta.blogproject.comment.entity;
 
 
 import com.sparta.blogproject.common.entity.TimeStamped;
+import com.sparta.blogproject.post.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,7 @@ import javax.persistence.Entity;
 @Getter
 @Entity
 public class Comment extends TimeStamped {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -23,19 +24,23 @@ public class Comment extends TimeStamped {
     @Column(nullable = false)
     private String comments;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
     public Comment(String username, String comments) {
         this.username = username;
         this.comments = comments;
     }
 
-    public Comment(CommentDto requestDto) {
-        this.username = requestDto.getUsername();
-        this.comments = requestDto.getComments();
-    }
-
-    public void update(CommentDto requestDto) {
-        this.username = requestDto.getUsername();
-        this.comments = requestDto.getComments();
-    }
+//    public Comment(CommentDto requestDto) {
+//        this.username = requestDto.getUsername();
+//        this.comments = requestDto.getComments();
+//    }
+//
+//    public void update(CommentDto requestDto) {
+//        this.username = requestDto.getUsername();
+//        this.comments = requestDto.getComments();
+//    }
 
 }
