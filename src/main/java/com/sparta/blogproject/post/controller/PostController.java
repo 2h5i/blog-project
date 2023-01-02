@@ -4,9 +4,9 @@ import com.sparta.blogproject.common.security.UserDetailsImpl;
 import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.post.dto.PostResponseDto;
 import com.sparta.blogproject.post.service.PostService;
-import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/api/posts")
 public class PostController {
     private final PostService postService;
-    private final UserRepository userRepository;
 
     @PostMapping("/")
     public ResponseEntity createPost(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -25,7 +24,7 @@ public class PostController {
         return ResponseEntity.ok("게시글 작성 완료");
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public List<PostResponseDto> getPosts() {
         return postService.getPosts();
     }
@@ -44,6 +43,20 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         postService.deletePost(id, userDetails.getUser());
+        return ResponseEntity.ok("게시글 삭제 완료");
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/admin/{id}")
+    public ResponseEntity updatePostByAdmin(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
+        postService.updatePostByAdmin(id, postRequestDto);
+        return ResponseEntity.ok("게시글 수정 완료");
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/admin/{id}")
+    public ResponseEntity deletePostByAmin(@PathVariable Long id) {
+        postService.deletePostByAdmin(id);
         return ResponseEntity.ok("게시글 삭제 완료");
     }
 }
