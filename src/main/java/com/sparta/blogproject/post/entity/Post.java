@@ -29,7 +29,7 @@ public class Post extends TimeStamped {
     @Column(nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) // cascade 함께 삭제하도록 구현
+    @OneToMany(mappedBy = "comments", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) // cascade 함께 삭제하도록 구현
     @OrderBy("id asc ") // id 순서대로 정렬
     private List<Comment> comments = new ArrayList<>();
 
