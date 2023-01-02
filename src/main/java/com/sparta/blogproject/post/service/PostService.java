@@ -7,7 +7,6 @@ import com.sparta.blogproject.post.repository.PostRepository;
 import com.sparta.blogproject.user.entity.User;
 import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

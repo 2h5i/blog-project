@@ -4,12 +4,10 @@ import com.sparta.blogproject.common.security.UserDetailsImpl;
 import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.post.dto.PostResponseDto;
 import com.sparta.blogproject.post.service.PostService;
-import com.sparta.blogproject.user.entity.User;
 import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
