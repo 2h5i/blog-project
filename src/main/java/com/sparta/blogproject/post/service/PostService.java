@@ -7,6 +7,7 @@ import com.sparta.blogproject.post.repository.PostRepository;
 import com.sparta.blogproject.user.entity.User;
 import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,8 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void createPost(PostRequestDto postRequestDto) {
-        String username = postRequestDto.getUser().getUsername();
+    public void createPost(PostRequestDto postRequestDto, UserDetails userDetails) {
+        String username = userDetails.getUsername();
 
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
@@ -45,20 +46,24 @@ public class PostService {
         return new PostResponseDto(post);
     }
 
-    public void update(Long id, PostRequestDto postRequestDto) {
+    public void update(Long id, PostRequestDto postRequestDto, UserDetails userDetails) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
         );
 
-        post.update(postRequestDto);
-        postRepository.save(post);
+        if (post.getUser().getUsername().equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+            post.update(postRequestDto);
+            postRepository.save(post);
+        }
     }
 
-    public void deletePost(Long id) {
+    public void deletePost(Long id, UserDetails userDetails) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
         );
 
-        postRepository.delete(post);
+        if (post.getUser().getUsername().equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+            postRepository.delete(post);
+        }
     }
 }
