@@ -1,6 +1,5 @@
 package com.sparta.blogproject.user.service;
 
-
 import com.sparta.blogproject.common.jwt.JwtUtil;
 import com.sparta.blogproject.user.dto.LoginRequest;
 import com.sparta.blogproject.user.dto.ResponseStatusDto;
@@ -10,10 +9,8 @@ import com.sparta.blogproject.user.entity.User;
 import com.sparta.blogproject.user.entity.UserRoleEnum;
 import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.codec.ClientCodecConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;

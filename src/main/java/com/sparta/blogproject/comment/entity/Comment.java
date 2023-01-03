@@ -2,7 +2,6 @@ package com.sparta.blogproject.comment.entity;
 
 import com.sparta.blogproject.comment.dto.CommentRequestDto;
 import com.sparta.blogproject.common.entity.TimeStamped;
-import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.user.entity.User;
 import lombok.Getter;
@@ -33,8 +32,9 @@ public class Comment extends TimeStamped {
     @Column(nullable = false)
     private String comments;
 
-    public Comment(CommentRequestDto commentRequestDto, User user) {
+    public Comment(CommentRequestDto commentRequestDto, Post post, User user) {
         this.comments = commentRequestDto.getComments();
+        this.post = post;
         this.user = user;
     }
 

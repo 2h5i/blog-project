@@ -18,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class LikeService {
-//    private final CommentRepository commentRepository;    TODO : 추후 수정 예정
+    private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final CommentLikeRepository commentLikeRepository;
     private final PostLikeRepository postLikeRepository;
-    private final CommentRepository commentRepository;
+
 
     //댓글 좋아요
     @Transactional
