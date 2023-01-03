@@ -28,6 +28,7 @@ public class UserService {
     // ADMIN_TOKEN
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
     private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public ResponseStatusDto signup(@Valid SignupRequest signupRequest) {
         String username = signupRequest.getUsername();
@@ -66,7 +67,7 @@ public class UserService {
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
         //비밀번호 확인
-          if(!passwordEncoder.matches(password,user.getPassword())){
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
@@ -79,11 +80,13 @@ public class UserService {
     @Transactional
     public ResponseStatusDto resignMembership(Long id, User user) {
         User foundUser = userRepository.findById(id).orElseThrow(
-                ()-> new IllegalArgumentException("사용자가 존재하지 않습니다. ")
+                () -> new IllegalArgumentException("사용자가 존재하지 않습니다. ")
         );
-        if(foundUser.getUsername().equals(user.getUsername())){
+        if (foundUser.getUsername().equals(user.getUsername())) {
+
+
             userRepository.delete(foundUser);
-        }else{
+        } else {
             throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
         }
         return new ResponseStatusDto(StatusEnum.RESIGN_SUCCESS);
