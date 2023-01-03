@@ -12,6 +12,8 @@ public class CommentResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
+    private Integer CommentLike;
+
     public CommentResponseDto(Comment comment) {
         this.username = comment.getUser().getUsername();
         this.comments = comment.getComments();
