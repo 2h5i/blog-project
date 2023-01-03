@@ -2,6 +2,7 @@ package com.sparta.blogproject.post.entity;
 
 import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.common.entity.TimeStamped;
+import com.sparta.blogproject.like.entity.PostLike;
 import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.user.entity.User;
 import lombok.Getter;
@@ -33,7 +34,8 @@ public class Post extends TimeStamped {
     @OrderBy("id asc") // id 순서대로 정렬
     private List<Comment> comments = new ArrayList<>();
 
-    // TODO: likeCount 추가하기
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<PostLike> PostLikeList = new ArrayList<>();
 
     public Post(PostRequestDto postRequestDto, User user) {
         this.contents = postRequestDto.getContents();

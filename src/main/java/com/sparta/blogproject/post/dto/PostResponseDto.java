@@ -2,6 +2,7 @@ package com.sparta.blogproject.post.dto;
 
 import com.sparta.blogproject.comment.dto.CommentResponseDto;
 import com.sparta.blogproject.comment.entity.Comment;
+import com.sparta.blogproject.like.repository.PostLikeRepository;
 import com.sparta.blogproject.post.entity.Post;
 import lombok.Getter;
 
@@ -16,8 +17,8 @@ public class PostResponseDto {
     private String title;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private List<CommentResponseDto> comments;
     private int like;
+    private List<CommentResponseDto> comments;
 
     public PostResponseDto(Post post) {
         this.username = post.getUser().getUsername();
@@ -25,7 +26,7 @@ public class PostResponseDto {
         this.title = post.getTitle();
         this.createdAt = post.getCreatedAt();
         this.modifiedAt = post.getModifiedAt();
+        this.like = post.getPostLikeList().size();
         this.comments = post.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
-        // TODO: this.likeCount 추가하기
     }
 }
