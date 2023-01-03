@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.persistence.Entity;
 
+import static javax.persistence.FetchType.LAZY;
+
 @NoArgsConstructor
 @Getter
 @Entity
@@ -19,12 +21,12 @@ public class Comment extends TimeStamped {
     private Long id;
 
     //        게시글
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 
     //        작성자
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
