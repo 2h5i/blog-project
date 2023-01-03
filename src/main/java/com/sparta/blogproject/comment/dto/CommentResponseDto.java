@@ -13,6 +13,8 @@ public class CommentResponseDto {
     private LocalDateTime modifiedAt;
     private int like;
 
+    private Integer CommentLike;
+
     public CommentResponseDto(Comment comment) {
         this.username = comment.getUser().getUsername();
         this.comments = comment.getComments();
