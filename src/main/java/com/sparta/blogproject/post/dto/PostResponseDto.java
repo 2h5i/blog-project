@@ -1,8 +1,6 @@
 package com.sparta.blogproject.post.dto;
 
 import com.sparta.blogproject.comment.dto.CommentResponseDto;
-import com.sparta.blogproject.comment.entity.Comment;
-import com.sparta.blogproject.like.repository.PostLikeRepository;
 import com.sparta.blogproject.post.entity.Post;
 import lombok.Getter;
 
