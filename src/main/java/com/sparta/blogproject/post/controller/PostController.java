@@ -18,13 +18,13 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity createPost(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         postService.createPost(postRequestDto, userDetails.getUser());
         return ResponseEntity.ok("게시글 작성 완료");
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<PostResponseDto> getPosts() {
         return postService.getPosts();
     }
