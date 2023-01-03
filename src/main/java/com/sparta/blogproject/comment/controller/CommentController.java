@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/posts/{postId}/comments")
+@RequestMapping("/api/posts")
 public class CommentController {
     private final CommentService commentService;
 
     //    작성
-    @PostMapping("")
+    @PostMapping("/{postId}/comments")
     public ResponseEntity createComment(@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.createComment(postId, commentRequestDto, userDetails.getUser());
         return ResponseEntity.ok("작성 완료");
     }
 
 //    수정
-    @PutMapping("/{id}")
+    @PutMapping("/comments/{id}")
     public ResponseEntity updateComment(@PathVariable Long id, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.updateComment(id, commentRequestDto, userDetails.getUser());
         return ResponseEntity.ok("수정 완료");
     }
 
 //    삭제
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/comments/{id}")
     public ResponseEntity deleteComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.deleteComment(id, userDetails.getUser());
         return ResponseEntity.ok("삭제 완료");
