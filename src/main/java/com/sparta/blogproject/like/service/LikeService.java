@@ -1,11 +1,11 @@
 package com.sparta.blogproject.like.service;
 
 import com.sparta.blogproject.like.dto.MsgResponseDto;
-import com.sparta.blogproject.like.entity.Comment;
+import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.like.entity.CommentLike;
 import com.sparta.blogproject.like.entity.PostLike;
 import com.sparta.blogproject.like.repository.CommentLikeRepository;
-//import com.sparta.blogproject.like.repository.CommentRepository; TODO : 추후 수정 예정
+import com.sparta.blogproject.comment.repository.CommentRepository;
 import com.sparta.blogproject.like.repository.PostLikeRepository;
 import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.post.repository.PostRepository;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class LikeService {
-//    private final CommentRepository commentRepository;    TODO : 추후 수정 예정
+    private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final CommentLikeRepository commentLikeRepository;
     private final PostLikeRepository postLikeRepository;
