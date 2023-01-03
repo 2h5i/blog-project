@@ -1,11 +1,11 @@
 package com.sparta.blogproject.like.service;
 
-import com.sparta.blogproject.like.dto.MsgResponseDto;
 import com.sparta.blogproject.comment.entity.Comment;
+import com.sparta.blogproject.comment.repository.CommentRepository;
+import com.sparta.blogproject.like.dto.MsgResponseDto;
 import com.sparta.blogproject.like.entity.CommentLike;
 import com.sparta.blogproject.like.entity.PostLike;
 import com.sparta.blogproject.like.repository.CommentLikeRepository;
-import com.sparta.blogproject.comment.repository.CommentRepository;
 import com.sparta.blogproject.like.repository.PostLikeRepository;
 import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.post.repository.PostRepository;
@@ -22,6 +22,7 @@ public class LikeService {
     private final PostRepository postRepository;
     private final CommentLikeRepository commentLikeRepository;
     private final PostLikeRepository postLikeRepository;
+
 
     //댓글 좋아요
     @Transactional

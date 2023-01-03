@@ -55,6 +55,7 @@ public class JwtUtil {
             return bearerToken.substring(7);
         }
         return null;
+
     }
 
     // 토큰 생성
