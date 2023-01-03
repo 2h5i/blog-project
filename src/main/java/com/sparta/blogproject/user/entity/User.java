@@ -1,5 +1,6 @@
 package com.sparta.blogproject.user.entity;
 
+import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.post.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +34,8 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     List<Post> postList = new ArrayList<>();
 
-//    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
-//    List<Comment> commentList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    List<Comment> commentList = new ArrayList<>();
 
     public User(String username, String password, String email, UserRoleEnum userRole) {
         this.username = username;
