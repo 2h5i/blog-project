@@ -32,7 +32,7 @@ public class LikeService {
                 () -> new IllegalArgumentException("찾는 댓글이 없습니다.")
         );
         //DB 에 해당 user 가 '댓글 좋아요' 누른 적이 없다면, '댓글 좋아요' 를 추가하기
-        if (commentLikeRepository.findByCommentIdAndUserId(commentId, Long.valueOf(user.getUsername())).isEmpty()){
+        if (commentLikeRepository.findByCommentIdAndUserId(commentId, Long.valueOf(user.getId())).isEmpty()){
             CommentLike commentLike = CommentLike.builder()
                     .comment(comment)
                     .user(user)
@@ -41,7 +41,7 @@ public class LikeService {
             return new MsgResponseDto("좋아요 완료", HttpStatus.OK.value());
             //DB 에 해당 user 가 '댓글 좋아요' 누른 적이 있다면, '댓글 좋아요' 를 제거하기
         }else {
-            commentLikeRepository.deleteByCommentIdAndUserId(comment.getId(), Long.valueOf(user.getUsername()));
+            commentLikeRepository.deleteByCommentIdAndUserId(comment.getId(), Long.valueOf(user.getId()));
             return new MsgResponseDto("좋아요 취소", HttpStatus.OK.value());
         }
     }
@@ -49,7 +49,7 @@ public class LikeService {
     // 게시글 좋아요 확인
     @Transactional(readOnly = true)
     public boolean checkPostLike(Long postId, User user) {
-        return postLikeRepository.existsByPostIdAndUserId(postId, Long.valueOf(user.getUsername()));
+        return postLikeRepository.existsByPostIdAndUserId(postId, Long.valueOf(user.getId()));
     }
 
     // 게시글 좋아요 생성 및 삭제
@@ -63,7 +63,7 @@ public class LikeService {
             postLikeRepository.saveAndFlush(new PostLike(post, user));
             return new MsgResponseDto("좋아요 완료", HttpStatus.OK.value());
         } else {
-            postLikeRepository.deleteByPostIdAndUserId(postId, Long.valueOf(user.getUsername()));
+            postLikeRepository.deleteByPostIdAndUserId(postId, Long.valueOf(user.getId()));
             return new MsgResponseDto("좋아요 취소", HttpStatus.OK.value());
         }
     }

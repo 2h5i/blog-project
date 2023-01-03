@@ -8,6 +8,4 @@ import lombok.Getter;
 public class PostRequestDto {
     private String contents;
     private String title;
-    private User user;
-    private Post post;
 }
