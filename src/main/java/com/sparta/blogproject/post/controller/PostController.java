@@ -5,6 +5,7 @@ import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.post.dto.PostResponseDto;
 import com.sparta.blogproject.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

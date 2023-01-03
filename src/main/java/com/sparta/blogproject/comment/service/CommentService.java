@@ -6,6 +6,7 @@ import com.sparta.blogproject.comment.dto.CommentResponseDto;
 import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.comment.repository.CommentRepository;
 import com.sparta.blogproject.post.dto.PostRequestDto;
+import com.sparta.blogproject.post.repository.PostRepository;
 import com.sparta.blogproject.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;
+
 
     @Transactional
     public void createComment(CommentRequestDto commentRequestDto, User user) {
