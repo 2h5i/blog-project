@@ -18,7 +18,6 @@ public class CommentResponseDto {
         this.comments = comment.getComments();
         this.createdAt = comment.getCreatedAt();
         this.modifiedAt = comment.getModifiedAt();
-//        this.like = comment.getLike();
     }
 
 }
