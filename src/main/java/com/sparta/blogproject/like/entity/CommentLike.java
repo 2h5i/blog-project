@@ -1,5 +1,6 @@
 package com.sparta.blogproject.like.entity;
 
+import com.sparta.blogproject.comment.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
