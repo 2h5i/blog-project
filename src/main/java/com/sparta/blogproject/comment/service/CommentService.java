@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
-    private final CommentLikeRepository commentLikeRepository;
 
     //    작성
     @Transactional
