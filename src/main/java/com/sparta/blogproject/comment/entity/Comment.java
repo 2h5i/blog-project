@@ -2,7 +2,6 @@ package com.sparta.blogproject.comment.entity;
 
 import com.sparta.blogproject.comment.dto.CommentRequestDto;
 import com.sparta.blogproject.common.entity.TimeStamped;
-import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.user.entity.User;
 import lombok.Getter;
