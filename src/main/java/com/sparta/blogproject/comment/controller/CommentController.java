@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/posts/comments")
+@RequestMapping("/api/comments")
 public class CommentController {
     private final CommentService commentService;
 
 //    작성
-    @PostMapping("/")
-    public ResponseEntity createComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        commentService.createComment(commentRequestDto, userDetails.getUser());
+    @PostMapping("/posts/{postId}")
+    public ResponseEntity createComment(@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        commentService.createComment(postId, commentRequestDto, userDetails.getUser());
         return ResponseEntity.ok("작성 완료");
     }
 

@@ -32,8 +32,9 @@ public class Comment extends TimeStamped {
     @Column(nullable = false)
     private String comments;
 
-    public Comment(CommentRequestDto commentRequestDto, User user) {
+    public Comment(CommentRequestDto commentRequestDto, Post post, User user) {
         this.comments = commentRequestDto.getComments();
+        this.post = post;
         this.user = user;
     }
 

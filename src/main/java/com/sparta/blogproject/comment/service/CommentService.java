@@ -3,6 +3,8 @@ package com.sparta.blogproject.comment.service;
 import com.sparta.blogproject.comment.dto.CommentRequestDto;
 import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.comment.repository.CommentRepository;
+import com.sparta.blogproject.post.entity.Post;
+import com.sparta.blogproject.post.repository.PostRepository;
 import com.sparta.blogproject.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,11 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public void createComment(CommentRequestDto commentRequestDto, User user) {
-        Comment comment = new Comment(commentRequestDto, user);
+    public void createComment(Long postId, CommentRequestDto commentRequestDto, User user) {
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
+        );
+        Comment comment = new Comment(commentRequestDto, post, user);
         commentRepository.save(comment);
     }
 
