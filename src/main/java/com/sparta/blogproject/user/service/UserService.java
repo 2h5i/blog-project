@@ -11,6 +11,8 @@ import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.event.TransactionalEventListener;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -73,4 +75,17 @@ public class UserService {
         return new ResponseStatusDto(StatusEnum.LOGIN_SUCCESS);
     }
 
+    // TODO: 2023-01-03 게시글 삭제 및 댓글 삭제 구현 요망 
+    @Transactional
+    public ResponseStatusDto resignMembership(Long id, User user) {
+        User foundUser = userRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("사용자가 존재하지 않습니다. ")
+        );
+        if(foundUser.getUsername().equals(user.getUsername())){
+            userRepository.delete(foundUser);
+        }else{
+            throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
+        }
+        return new ResponseStatusDto(StatusEnum.RESIGN_SUCCESS);
+    }
 }

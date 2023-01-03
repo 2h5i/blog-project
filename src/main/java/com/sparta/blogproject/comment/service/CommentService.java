@@ -3,7 +3,9 @@ package com.sparta.blogproject.comment.service;
 import com.sparta.blogproject.comment.dto.CommentRequestDto;
 import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.comment.repository.CommentRepository;
+
 import com.sparta.blogproject.post.entity.Post;
+
 import com.sparta.blogproject.post.repository.PostRepository;
 import com.sparta.blogproject.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,9 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
+
     //    작성
+
     @Transactional
     public void createComment(Long postId, CommentRequestDto commentRequestDto, User user) {
         Post post = postRepository.findById(postId).orElseThrow(
