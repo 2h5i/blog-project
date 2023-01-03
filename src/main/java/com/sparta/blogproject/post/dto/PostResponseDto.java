@@ -15,14 +15,16 @@ public class PostResponseDto {
     private String contents;
     private String title;
     private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
     private List<CommentResponseDto> comments;
-    // TODO: Like count 추가하가
+    private int like;
 
     public PostResponseDto(Post post) {
         this.username = post.getUser().getUsername();
         this.contents = post.getContents();
         this.title = post.getTitle();
         this.createdAt = post.getCreatedAt();
+        this.modifiedAt = post.getModifiedAt();
         this.comments = post.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
         // TODO: this.likeCount 추가하기
     }
