@@ -19,6 +19,8 @@ public class CommentService {
     private final PostRepository postRepository;
 
 
+    //    작성
+
     @Transactional
     public void createComment(Long postId, CommentRequestDto commentRequestDto, User user) {
         Post post = postRepository.findById(postId).orElseThrow(
@@ -28,6 +30,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    //    수정
     @Transactional
     public void updateComment(Long id, CommentRequestDto commentRequestDto, User user) {
         Comment comment = commentRepository.findById(id).orElseThrow(
@@ -41,6 +44,7 @@ public class CommentService {
         }
     }
 
+    //    삭제
     @Transactional
     public void deleteComment(Long id, User user) {
         Comment comment = commentRepository.findById(id).orElseThrow(
@@ -52,4 +56,5 @@ public class CommentService {
             throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
         }
     }
+
 }
