@@ -7,6 +7,7 @@ import com.sparta.blogproject.post.entity.Post;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,6 @@ public class PostResponseDto {
         this.createdAt = post.getCreatedAt();
         this.modifiedAt = post.getModifiedAt();
         this.like = post.getPostLikeList().size();
-        this.comments = post.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
+        this.comments = post.getComments().stream().map(CommentResponseDto::new).sorted(Comparator.comparing(CommentResponseDto::getCreatedAt)).collect(Collectors.toList());
     }
 }
