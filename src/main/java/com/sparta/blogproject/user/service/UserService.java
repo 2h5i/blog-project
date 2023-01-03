@@ -75,8 +75,7 @@ public class UserService {
 
         return new ResponseStatusDto(StatusEnum.LOGIN_SUCCESS);
     }
-
-    // TODO: 2023-01-03 게시글 삭제 및 댓글 삭제 구현 요망 
+    
     @Transactional
     public ResponseStatusDto resignMembership(Long id, User user) {
         User foundUser = userRepository.findById(id).orElseThrow(
