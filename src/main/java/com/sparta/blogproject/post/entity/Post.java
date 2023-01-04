@@ -52,18 +52,4 @@ public class Post extends TimeStamped {
         this.contents = postRequestDto.getContents();
         this.title = postRequestDto.getTitle();
     }
-
-    public Page<PostResponseDto> toDtoPage(Page<Post> postPage) {
-        Page<PostResponseDto> postResponseDtoPage = postPage.map(m ->
-                PostResponseDto.builder()
-                        .username(m.getUser().getUsername())
-                        .contents(m.getContents())
-                        .title(m.getTitle())
-                        .createdAt(m.getCreatedAt())
-                        .modifiedAt(m.getModifiedAt())
-                        .like(m.getPostLikeList().size())
-                        .comments(m.getComments().stream().map(CommentResponseDto::new).sorted(Comparator.comparing(CommentResponseDto::getCreatedAt)).collect(Collectors.toList()))
-                        .build());
-        return postResponseDtoPage;
-    }
 }
