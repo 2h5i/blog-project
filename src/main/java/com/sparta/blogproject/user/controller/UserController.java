@@ -5,6 +5,7 @@ import com.sparta.blogproject.user.dto.LoginRequest;
 import com.sparta.blogproject.user.dto.ResponseStatusDto;
 import com.sparta.blogproject.user.dto.SignupRequest;
 
+import com.sparta.blogproject.user.dto.TokenRequestDto;
 import com.sparta.blogproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,7 +32,14 @@ public class UserController {
     public ResponseStatusDto login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         return userService.login(loginRequest, response);
     }
-   //- 3. 회원탈퇴 API
+
+    // - 3. 토큰 재발행 API
+    @PostMapping("/reissue")
+    public void reIssue(@RequestBody TokenRequestDto tokenRequestDto, HttpServletResponse response){
+        userService.reIssue(tokenRequestDto, response);
+    }
+
+   //- 4. 회원탈퇴 API
     @DeleteMapping("/resign/{id}")
     public ResponseStatusDto resignMembership(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
           return userService.resignMembership(id,userDetails.getUser());
