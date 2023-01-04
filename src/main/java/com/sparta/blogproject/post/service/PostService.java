@@ -5,13 +5,13 @@ import com.sparta.blogproject.post.dto.PostResponseDto;
 import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.post.repository.PostRepository;
 import com.sparta.blogproject.user.entity.User;
-import com.sparta.blogproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +25,12 @@ public class PostService {
         postRepository.save(post);
     }
 
+
     @Transactional(readOnly = true)
-    public List<PostResponseDto> getPosts() {
-        return postRepository.findAllByOrderByModifiedAtDesc().stream().map(PostResponseDto::new).collect(Collectors.toList());
+    public Page<PostResponseDto> getPosts(Pageable pageable) {
+        Page<Post> postPage = postRepository.findAll(pageable);
+        Page<PostResponseDto> postResponseDtoPage = PostResponseDto.toDtoPage(postPage);
+        return postResponseDtoPage;
     }
 
     @Transactional(readOnly = true)

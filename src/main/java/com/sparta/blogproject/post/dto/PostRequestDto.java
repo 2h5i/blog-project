@@ -1,7 +1,5 @@
 package com.sparta.blogproject.post.dto;
 
-import com.sparta.blogproject.user.entity.User;
-import com.sparta.blogproject.post.entity.Post;
 import lombok.Getter;
 
 @Getter
