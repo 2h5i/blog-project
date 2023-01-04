@@ -5,9 +5,11 @@ import com.sparta.blogproject.user.dto.LoginRequest;
 import com.sparta.blogproject.user.dto.ResponseStatusDto;
 import com.sparta.blogproject.user.dto.SignupRequest;
 import com.sparta.blogproject.user.dto.StatusEnum;
+import com.sparta.blogproject.user.dto.TokenRequestDto;
 import com.sparta.blogproject.user.entity.User;
 import com.sparta.blogproject.user.entity.UserRoleEnum;
 import com.sparta.blogproject.user.repository.UserRepository;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -70,12 +72,35 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
 
+        user.updateRefreshToken(jwtUtil.createRefreshToken());
+        userRepository.saveAndFlush(user);
+
+        addTokenToHeader(response, user);
 
         return new ResponseStatusDto(StatusEnum.LOGIN_SUCCESS);
     }
-    
+
+    @Transactional
+    public void reIssue(TokenRequestDto tokenRequestDto, HttpServletResponse response) {
+        if(!jwtUtil.validateTokenExceptExpiration(tokenRequestDto.getRefreshToken())){
+            throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
+        }
+
+        User user = findUserByToken(tokenRequestDto);
+
+        if(!user.getRefreshToken().equals(tokenRequestDto.getRefreshToken())){
+            throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
+        }
+
+        String refreshToken = jwtUtil.createRefreshToken();
+
+        user.updateRefreshToken(refreshToken);
+        userRepository.saveAndFlush(user);
+
+        addTokenToHeader(response, user);
+    }
+
     @Transactional
     public ResponseStatusDto resignMembership(Long id, User user) {
         User foundUser = userRepository.findById(id).orElseThrow(
@@ -89,5 +114,18 @@ public class UserService {
             throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
         }
         return new ResponseStatusDto(StatusEnum.RESIGN_SUCCESS);
+    }
+
+    private User findUserByToken(TokenRequestDto tokenRequestDto) {
+        Claims claims = jwtUtil.getUserInfoFromToken(tokenRequestDto.getAccessToken().substring(7));
+        String username = claims.getSubject();
+        return userRepository.findByUsername(username).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 사용자입니다.")
+        );
+    }
+
+    private void addTokenToHeader(HttpServletResponse response, User user) {
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
+        response.addHeader(JwtUtil.REFRESH_HEADER, user.getRefreshToken());
     }
 }

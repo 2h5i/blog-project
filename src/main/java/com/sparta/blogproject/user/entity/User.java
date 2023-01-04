@@ -37,10 +37,18 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.REMOVE)
     List<Comment> commentList = new ArrayList<>();
 
+    @Column
+    private String refreshToken;
+
     public User(String username, String password, String email, UserRoleEnum userRole) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = userRole;
     }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
 }
