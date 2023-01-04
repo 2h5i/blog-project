@@ -1,16 +1,21 @@
 package com.sparta.blogproject.post.entity;
 
+import com.sparta.blogproject.comment.dto.CommentResponseDto;
 import com.sparta.blogproject.comment.entity.Comment;
 import com.sparta.blogproject.common.entity.TimeStamped;
 import com.sparta.blogproject.like.entity.PostLike;
 import com.sparta.blogproject.post.dto.PostRequestDto;
+import com.sparta.blogproject.post.dto.PostResponseDto;
 import com.sparta.blogproject.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Entity
@@ -46,5 +51,19 @@ public class Post extends TimeStamped {
     public void update(PostRequestDto postRequestDto) {
         this.contents = postRequestDto.getContents();
         this.title = postRequestDto.getTitle();
+    }
+
+    public Page<PostResponseDto> toDtoPage(Page<Post> postPage) {
+        Page<PostResponseDto> postResponseDtoPage = postPage.map(m ->
+                PostResponseDto.builder()
+                        .username(m.getUser().getUsername())
+                        .contents(m.getContents())
+                        .title(m.getTitle())
+                        .createdAt(m.getCreatedAt())
+                        .modifiedAt(m.getModifiedAt())
+                        .like(m.getPostLikeList().size())
+                        .comments(m.getComments().stream().map(CommentResponseDto::new).sorted(Comparator.comparing(CommentResponseDto::getCreatedAt)).collect(Collectors.toList()))
+                        .build());
+        return postResponseDtoPage;
     }
 }

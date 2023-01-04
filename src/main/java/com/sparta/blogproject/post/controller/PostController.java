@@ -3,15 +3,17 @@ package com.sparta.blogproject.post.controller;
 import com.sparta.blogproject.common.security.UserDetailsImpl;
 import com.sparta.blogproject.post.dto.PostRequestDto;
 import com.sparta.blogproject.post.dto.PostResponseDto;
+import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,8 +28,8 @@ public class PostController {
     }
 
     @GetMapping("")
-    public List<PostResponseDto> getPosts() {
-        return postService.getPosts();
+    public Page<PostResponseDto> getPosts(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        return postService.getPosts(pageable);
     }
 
     @GetMapping("/{id}")
