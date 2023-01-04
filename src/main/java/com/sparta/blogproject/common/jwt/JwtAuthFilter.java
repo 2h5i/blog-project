@@ -3,8 +3,10 @@ package com.sparta.blogproject.common.jwt;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.GenericFilter;
@@ -12,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
@@ -23,14 +26,27 @@ public class JwtAuthFilter extends GenericFilter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = jwtUtil.resolveToken((HttpServletRequest) request);
+        try {
+            String token = jwtUtil.resolveToken((HttpServletRequest) request);
 
-        if(token != null && jwtUtil.validateTokenExceptExpiration(token)) {
-//            Authentication auth = jwtUtil.createAuthentication(token);
-            Claims info = jwtUtil.getUserInfoFromToken(token);
-            Authentication authentication = jwtUtil.createAuthentication(info.getSubject());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (token != null && jwtUtil.validateTokenExceptExpiration(token)) {
+                Claims info = jwtUtil.getUserInfoFromToken(token);
+                Authentication authentication = jwtUtil.createAuthentication(info.getSubject());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+
+            chain.doFilter(request, response);
+        } catch (UsernameNotFoundException exception) {
+            HttpServletResponse realResponse = (HttpServletResponse) response;
+            log.error("e = {}", exception.getMessage());
+            realResponse.setContentType("application/json;charset=UTF-8");
+            realResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("message", exception.getMessage());
+            responseJson.put("code", 400);
+
+            realResponse.getWriter().print(responseJson);
         }
-        chain.doFilter(request, response);
     }
 }
