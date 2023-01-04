@@ -28,7 +28,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Page<PostResponseDto> getPosts(Pageable pageable) {
-        Page<Post> postPage = postRepository.findAll(pageable);;
+        Page<Post> postPage = postRepository.findAll(pageable);
         Page<PostResponseDto> postResponseDtoPage = PostResponseDto.toDtoPage(postPage);
         return postResponseDtoPage;
     }
