@@ -5,8 +5,10 @@ import com.sparta.blogproject.common.entity.TimeStamped;
 import com.sparta.blogproject.like.entity.CommentLike;
 import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.user.entity.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class Comment extends TimeStamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,14 +43,21 @@ public class Comment extends TimeStamped {
     @OneToMany(mappedBy = "comment", fetch = LAZY, cascade = CascadeType.REMOVE)
     private List<CommentLike> commentLikeList = new ArrayList<>();
 
-    public Comment(CommentRequestDto commentRequestDto, Post post, User user) {
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "parent_id")
+    private Comment parent;
+
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    private List<Comment> children = new ArrayList<>();
+
+    public Comment(CommentRequestDto commentRequestDto, Post post, User user, Comment parent) {
         this.comments = commentRequestDto.getComments();
         this.post = post;
         this.user = user;
+        this.parent = parent;
     }
 
     public void update(CommentRequestDto commentRequestDto) {
         this.comments = commentRequestDto.getComments();
     }
-
 }
