@@ -32,6 +32,9 @@ public class Comment extends TimeStamped {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @Column
+    private Long mainPostId;
+
     //        작성자
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
@@ -55,6 +58,7 @@ public class Comment extends TimeStamped {
         this.post = post;
         this.user = user;
         this.parent = parent;
+        this.mainPostId = post.getId();
     }
 
     public void update(CommentRequestDto commentRequestDto) {
