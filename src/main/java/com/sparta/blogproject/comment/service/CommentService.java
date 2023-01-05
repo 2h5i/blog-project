@@ -35,7 +35,7 @@ public class CommentService {
                     () -> new IllegalArgumentException("존재하지 않는 댓글입니다.")
             );
             // 부모 댓글과 자식 댓글의 게시글 아이디가 같은지 확인
-            if (parent.getMainPostId() != postId) {
+            if (!parent.getMainPostId().equals(postId)) {
                 throw new IllegalArgumentException("게시글 번호가 일치하지 않습니다.");
             }
         }
@@ -46,7 +46,7 @@ public class CommentService {
             commentRepository.save(comment);
         //대댓글인 경우
         } else {
-            Comment comment = new Comment(commentRequestDto, null, user, parent);
+            Comment comment = new Comment(commentRequestDto, post, user, parent);
             comment.setMainPostId(post.getId());
             comment.getParent().setId(commentRequestDto.getParentId());
             commentRepository.save(comment);

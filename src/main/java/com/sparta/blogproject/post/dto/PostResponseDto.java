@@ -50,6 +50,7 @@ public class PostResponseDto {
     public static Page<PostResponseDto> toDtoPage(Page<Post> postPage) {
         Page<PostResponseDto> postResponseDtoPage = postPage.map(m ->
                 PostResponseDto.builder()
+                        .id(m.getId())
                         .username(m.getUser().getUsername())
                         .contents(m.getContents())
                         .title(m.getTitle())
