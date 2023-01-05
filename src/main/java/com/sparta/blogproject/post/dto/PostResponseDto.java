@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 @Builder
 public class PostResponseDto {
+    private Long id;
     private String username;
     private String contents;
     private String title;
@@ -23,6 +24,7 @@ public class PostResponseDto {
     private List<CommentResponseDto> comments;
 
     public PostResponseDto(Post post) {
+        this.id = post.getId();
         this.username = post.getUser().getUsername();
         this.contents = post.getContents();
         this.title = post.getTitle();
