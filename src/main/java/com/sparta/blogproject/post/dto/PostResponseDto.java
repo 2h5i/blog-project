@@ -54,7 +54,7 @@ public class PostResponseDto {
                         .modifiedAt(m.getModifiedAt())
                         .like(m.getPostLikeList().size())
                         .comments(m.getComments().stream().map(CommentResponseDto::new)
-                                .sorted(Comparator.comparing(CommentResponseDto::getCreatedAt)).collect(Collectors.toList()))
+                        .sorted(Comparator.comparing(CommentResponseDto::getCreatedAt)).collect(Collectors.toList()))
                         .build());
         return postResponseDtoPage;
     }
