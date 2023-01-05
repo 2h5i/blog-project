@@ -9,6 +9,7 @@ import com.sparta.blogproject.post.entity.Post;
 import com.sparta.blogproject.post.repository.PostRepository;
 import com.sparta.blogproject.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +27,30 @@ public class CommentService {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
         );
-        Comment comment = new Comment(commentRequestDto, post, user);
-        commentRepository.save(comment);
+
+        Comment parent = null;
+        //자식 댓글인 경우
+        if (commentRequestDto.getParentId() != null) {
+            parent = commentRepository.findById(commentRequestDto.getParentId()).orElseThrow(
+                    () -> new IllegalArgumentException("존재하지 않는 댓글입니다.")
+            );
+//            // 부모 댓글과 자식 댓글의 게시글 아이디가 같은지 확인
+//            if (parent.getPost().getId() != postId) {
+//                throw new IllegalArgumentException("게시글 번호가 일치하지 않습니다.");
+//            }
+        }
+
+        //댓글인 경우
+        if (parent == null) {
+            Comment comment = new Comment(commentRequestDto, post, user, parent);
+            commentRepository.save(comment);
+        //대댓글인 경우
+        } else {
+            Comment comment = new Comment(commentRequestDto, null, user, parent);
+            comment.getParent().setId(commentRequestDto.getParentId());
+            commentRepository.save(comment);
+        }
+
     }
 
     //    수정
