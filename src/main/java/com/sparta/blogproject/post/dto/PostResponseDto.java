@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 @Builder
 public class PostResponseDto {
+    private Long id;
     private String username;
     private String contents;
     private String title;
@@ -23,6 +24,7 @@ public class PostResponseDto {
     private List<CommentResponseDto> comments;
 
     public PostResponseDto(Post post) {
+        this.id = post.getId();
         this.username = post.getUser().getUsername();
         this.contents = post.getContents();
         this.title = post.getTitle();
@@ -33,8 +35,9 @@ public class PostResponseDto {
                 .sorted(Comparator.comparing(CommentResponseDto::getCreatedAt)).collect(Collectors.toList());
     }
 
-    public PostResponseDto(String username, String contents, String title, LocalDateTime createdAt,
+    public PostResponseDto(Long id, String username, String contents, String title, LocalDateTime createdAt,
                            LocalDateTime modifiedAt, int like, List<CommentResponseDto> comments) {
+        this.id = id;
         this.username = username;
         this.contents = contents;
         this.title = title;
@@ -47,6 +50,7 @@ public class PostResponseDto {
     public static Page<PostResponseDto> toDtoPage(Page<Post> postPage) {
         Page<PostResponseDto> postResponseDtoPage = postPage.map(m ->
                 PostResponseDto.builder()
+                        .id(m.getId())
                         .username(m.getUser().getUsername())
                         .contents(m.getContents())
                         .title(m.getTitle())
