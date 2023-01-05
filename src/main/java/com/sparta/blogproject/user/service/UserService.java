@@ -107,8 +107,6 @@ public class UserService {
                 () -> new IllegalArgumentException("사용자가 존재하지 않습니다. ")
         );
         if (foundUser.getUsername().equals(user.getUsername())) {
-
-
             userRepository.delete(foundUser);
         } else {
             throw new IllegalArgumentException("접근할 수 있는 권한이 없습니다.");
