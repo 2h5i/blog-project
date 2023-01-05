@@ -35,8 +35,9 @@ public class PostResponseDto {
                 .sorted(Comparator.comparing(CommentResponseDto::getCreatedAt)).collect(Collectors.toList());
     }
 
-    public PostResponseDto(String username, String contents, String title, LocalDateTime createdAt,
+    public PostResponseDto(Long id, String username, String contents, String title, LocalDateTime createdAt,
                            LocalDateTime modifiedAt, int like, List<CommentResponseDto> comments) {
+        this.id = id;
         this.username = username;
         this.contents = contents;
         this.title = title;
