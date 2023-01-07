@@ -1,11 +1,7 @@
 package com.sparta.blogproject.user.service;
 
 import com.sparta.blogproject.common.jwt.JwtUtil;
-import com.sparta.blogproject.user.dto.LoginRequest;
-import com.sparta.blogproject.user.dto.ResponseStatusDto;
-import com.sparta.blogproject.user.dto.SignupRequest;
-import com.sparta.blogproject.user.dto.StatusEnum;
-import com.sparta.blogproject.user.dto.TokenRequestDto;
+import com.sparta.blogproject.user.dto.*;
 import com.sparta.blogproject.user.entity.User;
 import com.sparta.blogproject.user.entity.UserRoleEnum;
 import com.sparta.blogproject.user.repository.UserRepository;
@@ -13,7 +9,6 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -59,7 +54,7 @@ public class UserService {
 
     }
 
-    @Transactional // readOnly= true  하면 에러남
+    @Transactional
     public ResponseStatusDto login(LoginRequest loginRequest, HttpServletResponse response) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
@@ -75,7 +70,6 @@ public class UserService {
 
         user.updateRefreshToken(jwtUtil.createRefreshToken());
         userRepository.saveAndFlush(user);
-
         addTokenToHeader(response, user);
 
         return new ResponseStatusDto(StatusEnum.LOGIN_SUCCESS);
